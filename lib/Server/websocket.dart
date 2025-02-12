@@ -9,11 +9,11 @@ class WebsocketServer {
   factory WebsocketServer() => _singleton;
 
   final int port;
-  String ipAddress = "Unknown";
+  String ipAddress;
   final List<WebSocket> clients = []; // List to store connected clients
   bool _isRunning = false;
 
-  WebsocketServer._internal({this.port = PORT});
+  WebsocketServer._internal({this.port = PORT, this.ipAddress = IPADRESS});
 
   Future<void> start() async {
     if (_isRunning) {
@@ -24,7 +24,7 @@ class WebsocketServer {
 
     try {
       await MongoDB_Server.connect();
-      ipAddress = await _getLocalIPAddress();
+      // ipAddress = await _getLocalIPAddress();
 
       HttpServer server = await HttpServer.bind(ipAddress, port);
       print("WebSocket Server running on ws://$ipAddress:$port");
@@ -48,17 +48,17 @@ class WebsocketServer {
     }
   }
 
-  Future<String> _getLocalIPAddress() async {
-    final interfaces = await NetworkInterface.list();
-    for (var interface in interfaces) {
-      for (var addr in interface.addresses) {
-        if (addr.type == InternetAddressType.IPv4 && !addr.address.startsWith("127.")) {
-          return addr.address;
-        }
-      }
-    }
-    return "0.0.0.0";
-  }
+  // Future<String> _getLocalIPAddress() async {
+  //   final interfaces = await NetworkInterface.list();
+  //   for (var interface in interfaces) {
+  //     for (var addr in interface.addresses) {
+  //       if (addr.type == InternetAddressType.IPv4 && !addr.address.startsWith("127.")) {
+  //         return addr.address;
+  //       }
+  //     }
+  //   }
+  //   return "0.0.0.0";
+  // }
 
   bool isRunning() => _isRunning;
 
@@ -89,7 +89,10 @@ class WebsocketServer {
       sendUpdateToClients(jsonEncode(change));
     }, onError: (error) {
       print("Error watching database changes: $error");
-    });
+      Future.delayed(Duration(seconds: 5), watchDatabaseChanges); // Auto-restart
+    },
+      cancelOnError: false, // Prevents the stream from stopping
+    );
   }
 
   void sendUpdateToClients(String message) {

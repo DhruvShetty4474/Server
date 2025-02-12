@@ -11,3 +11,6 @@ const MONGO_URL ='mongodb+srv://kazu:4474@cluster0.ox5nh.mongodb.net/test?retryW
 const COLLECTION_NAME = 'users';
 
 const PORT = 8080;
+
+
+const IPADRESS = "192.168.29.220";
