@@ -1,16 +1,22 @@
-# server_websocket
-
-A new Flutter project.
+# WEBSOCKET SERVER
 
 ## Getting Started
+when you run the project you will have a UI like this 
+![image](https://github.com/user-attachments/assets/8e6f9425-6d86-49b6-a734-94058720abf0)
 
-This project is a starting point for a Flutter application.
+WE CAN SE 2 BUTTONS START SERVER AND STOP SERVER
 
-A few resources to get you started if this is your first Flutter project:
+FUNCTIONALITY
+1. START SERVER - WILL START THE SERVER AND CONNECT THE WEBSOCKET WILL THE MONGODB ATLAS 
+WILL SHOW A PROMPT IN TERMINAL 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+flutter: Connected to MongoDB!
+flutter: WebSocket Server running on ws://192.168.29.220:8080
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+AND WHEN A NEW USER CONNECT 
+FLUTTER: New WebSocket client connected 
+
+2. STOP SERVER: WILL REMOVE ALL THE CLIENT WHICH IS CONNECTED BUT NOT ACTUALLY STOP THE SERVER.
+    :)
+
+THATS ALL :)
